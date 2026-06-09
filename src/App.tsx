@@ -219,6 +219,7 @@ export default function App() {
 
   // App View State
   const [currentView, setCurrentView] = useState<'landing' | 'editor'>('landing');
+  const [mobileTab, setMobileTab] = useState<'editor' | 'preview'>('editor');
 
   const isDragging = useRef(false);
   const dragStart = useRef({ x: 0, y: 0 });
@@ -435,7 +436,7 @@ export default function App() {
 
   if (currentView === 'landing') {
     return (
-      <div className="flex min-h-screen w-full bg-[#050505] font-sans text-white items-center justify-center p-6 lg:p-12 relative overflow-hidden">
+      <div className="flex h-[100dvh] w-full bg-[#050505] font-sans text-white items-center justify-center p-4 sm:p-6 lg:p-12 relative overflow-y-auto overflow-x-hidden">
         {/* Animated cosmic background for landing */}
         <div className="absolute inset-0 z-0 flex items-center justify-center opacity-20 pointer-events-none select-none">
            <div className="w-[150vw] h-[150vw] sm:w-[120vw] sm:h-[120vw] animate-[spin_240s_linear_infinite]">
@@ -569,9 +570,26 @@ export default function App() {
   }
 
   return (
-    <div className="flex min-h-screen w-full bg-[#0a0a0a] font-sans text-gray-300 flex-col lg:flex-row overflow-hidden">
+    <div className="flex h-[100dvh] w-full bg-[#0a0a0a] font-sans text-gray-300 flex-col lg:flex-row overflow-hidden relative">
+      
+      {/* Mobile Tab Navigation */}
+      <div className="lg:hidden flex border-b border-[#222] bg-[#121212] z-30 shrink-0 relative shadow-md">
+        <button 
+          onClick={() => setMobileTab('editor')}
+          className={`flex-1 py-4 text-[11px] font-bold uppercase tracking-widest text-center border-b-2 transition-colors ${mobileTab === 'editor' ? 'border-white text-white' : 'border-transparent text-gray-500'}`}
+        >
+          Editor
+        </button>
+        <button 
+          onClick={() => setMobileTab('preview')}
+          className={`flex-1 py-4 text-[11px] font-bold uppercase tracking-widest text-center border-b-2 transition-colors ${mobileTab === 'preview' ? 'border-white text-white' : 'border-transparent text-gray-500'}`}
+        >
+          Preview
+        </button>
+      </div>
+
       {/* Sidebar Editor */}
-      <aside className="w-full lg:w-[400px] border-b lg:border-b-0 lg:border-r border-[#222] bg-[#121212] p-6 lg:p-8 flex flex-col gap-6 shrink-0 overflow-y-auto max-h-screen z-10 shadow-2xl relative">
+      <aside className={`${mobileTab === 'editor' ? 'flex' : 'hidden'} lg:flex w-full lg:w-[400px] border-r border-[#222] bg-[#121212] p-5 lg:p-8 flex-col gap-6 shrink-0 overflow-y-auto h-full z-10 shadow-2xl relative pb-12 lg:pb-8`}>
         <div className="mb-4 flex flex-col gap-6">
           <button 
             onClick={() => setCurrentView('landing')}
@@ -773,13 +791,13 @@ export default function App() {
       </aside>
 
       {/* Preview Area */}
-      <main className="flex-1 flex items-center justify-center p-4 sm:p-8 lg:p-12 overflow-y-auto bg-[#181818]">
+      <main className={`${mobileTab === 'preview' ? 'flex' : 'hidden'} lg:flex flex-1 items-center justify-center p-4 sm:p-8 lg:p-12 overflow-y-auto bg-[#181818] h-full`}>
         
         {/* Poster Canvas */}
         <div 
           id="poster-frame"
           ref={posterRef}
-          className={`w-full max-w-[480px] aspect-[3/4] flex flex-col items-center justify-between p-12 shadow-[0_40px_100px_-15px_rgba(0,0,0,0.8)] border-[1px] relative transition-all duration-700 ease-out hover:scale-[1.015] hover:-translate-y-1 ${activeThemeConfig.bg} ${activeThemeConfig.border} overflow-hidden`}
+          className={`w-full max-w-[480px] aspect-[3/4] flex flex-col items-center justify-between p-6 sm:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] sm:shadow-[0_40px_100px_-15px_rgba(0,0,0,0.8)] border-[1px] relative transition-all duration-700 ease-out lg:hover:scale-[1.015] lg:hover:-translate-y-1 ${activeThemeConfig.bg} ${activeThemeConfig.border} overflow-hidden shrink-0 mt-4 sm:mt-0`}
         >
           {/* Background Image wrapper */}
           <div 
