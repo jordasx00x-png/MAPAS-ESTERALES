@@ -1,0 +1,6 @@
+{
+  "name": "Star Map Creator",
+  "description": "Interactive web application to customize and preview minimalist star map posters with Spotify integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

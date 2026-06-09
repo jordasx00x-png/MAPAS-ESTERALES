@@ -1,0 +1,38 @@
+{
+  "entities": {
+    "StarMap": {
+      "title": "Star Map",
+      "description": "A customized star map created by a user",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "message": { "type": "string" },
+        "date": { "type": "string" },
+        "location": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "bgImage": { "type": "string", "description": "Base64 string or URL of bgImage" },
+        "bgOffset": { 
+          "type": "object",
+          "properties": { "x": { "type": "number" }, "y": { "type": "number" } }
+        },
+        "bgScale": { "type": "number" },
+        "bgOverlay": { "type": "number" },
+        "posterTheme": { "type": "string", "enum": ["dark", "light"] },
+        "titleFont": { "type": "string", "enum": ["script", "serif", "sans"] },
+        "showSpotify": { "type": "boolean" },
+        "ownerId": { "type": "string" },
+        "updatedAt": { "type": "timestamp" },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["title", "ownerId", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/maps/{mapId}": {
+      "schema": { "$ref": "#/entities/StarMap" },
+      "description": "Star maps saved by users"
+    }
+  }
+}

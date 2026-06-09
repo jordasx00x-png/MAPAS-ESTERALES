@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Great Vibes", cursive;
+}
+
+@media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
+  
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    background: transparent !important;
+  }
+  
+  aside {
+    display: none !important;
+  }
+  
+  #root > div {
+    display: block !important;
+    background: transparent !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  
+  main {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100vh !important;
+    overflow: visible !important;
+  }
+  
+  #poster-frame {
+    box-shadow: none !important;
+    border: none !important;
+    max-width: none !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    padding: 2rem !important;
+    transform: none !important;
+    aspect-ratio: auto !important;
+  }
+}
